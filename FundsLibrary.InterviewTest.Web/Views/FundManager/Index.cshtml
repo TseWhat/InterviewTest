@@ -3,12 +3,26 @@
 <div class="fund-managers">
     <h1>Fund managers</h1>
 
-    @foreach (var fundManager in Model)
-    {
-        <div class="fund-manager">
-            <span class="glyphicon glyphicon-user"></span>
-            @Html.ActionLink(fundManager.Name, "Details", new { Id = fundManager.Id })
-        </div>
-    }
+    <table id="table" class="table">
+        <thead>
+            <tr>
+                <th></th>
+                <th>Manager Name</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var fundManager in Model)
+            {
+                <tr class="fund-manager">
+                    <td> <span class="glyphicon glyphicon-user"></span></td>
+                    <td>@Html.ActionLink(fundManager.Name, "Details", new { Id = fundManager.Id })</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
 </div>
 
+@section scripts {
+    <script type="text/javascript" src="~/Scripts/fundManager.js"></script>    
+}
