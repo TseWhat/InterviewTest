@@ -2,6 +2,8 @@
 using System.Threading.Tasks;
 using System.Web.Mvc;
 using FundsLibrary.InterviewTest.Web.Repositories;
+using FundsLibrary.InterviewTest.Web.Models.Errors;
+using FundsLibrary.InterviewTest.Web.Resources;
 
 namespace FundsLibrary.InterviewTest.Web.Controllers
 {
@@ -22,13 +24,32 @@ namespace FundsLibrary.InterviewTest.Web.Controllers
         // GET: FundManager
         public async Task<ActionResult> Index()
         {
-            return View(await _repository.GetAll());
+            var response = await _repository.GetAll();
+
+            if (response != null)
+                return View(response);
+
+            return View("NotFound", new ErrorModel {  ErrorHeader = Application.NoManagersFound, ErrorMessage = Application.NoManagersFoundMessage});
         }
 
         // GET: FundManager/Details/id
         public async Task<ActionResult> Details(Guid id)
         {
-            return View(await _repository.Get(id));
+            if (id != Guid.Empty)
+            {
+                var response = await _repository.Get(id);
+
+                if (response != null) 
+                    return View(response);
+            }
+
+            return RedirectToAction("NotFound", new ErrorModel { ErrorHeader = Application.ManagerNotFound, ErrorMessage = Application.NotFoundMessage });
+        }
+
+        // GET: FundManager/NotFound
+        public ActionResult NotFound(ErrorModel model)
+        {
+            return View("NotFound", model);
         }
     }
 }

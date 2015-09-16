@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using FundsLibrary.InterviewTest.Common;
 using FundsLibrary.InterviewTest.Web.Models;
 using FundsLibrary.InterviewTest.Web.Models.Mappers;
+using System.Web;
 
 namespace FundsLibrary.InterviewTest.Web.Repositories
 {
@@ -32,13 +33,30 @@ namespace FundsLibrary.InterviewTest.Web.Repositories
         public async Task<IEnumerable<FundManagerModel>> GetAll()
         {
             var managers = await _client.GetAndReadFromContentGetAsync<IEnumerable<FundManager>>("api/FundManager/");
-            return managers.Select(s => _toModelMapper.Map(s));
+
+            if (managers == null)
+            {
+                return null;
+            }
+            else
+            {
+                return managers.Select(s => _toModelMapper.Map(s));
+            }
+            
         }
 
         public async Task<FundManagerModel> Get(Guid id)
         {
             var manager = await _client.GetAndReadFromContentGetAsync<FundManager>("api/FundManager/" + id);
-            return _toModelMapper.Map(manager);
+
+            if (manager == null)
+            {
+                return null;
+            }
+            else
+            {
+                return _toModelMapper.Map(manager);
+            }
         }
     }
 }
