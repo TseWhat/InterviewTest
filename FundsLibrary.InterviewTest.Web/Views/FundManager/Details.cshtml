@@ -7,6 +7,12 @@
 <h1>Details</h1>
 
 <div class="fund-manager-details">
+
+    @if (!string.IsNullOrEmpty(ViewBag.SuccessMessage))
+    {
+        <div class="alert-success col-lg-12" style="padding: 15px 10px; margin-bottom: 15px"><span>@ViewBag.SuccessMessage</span></div>
+    }
+
     <dl class="dl-horizontal">
         <dt>
             @Html.DisplayNameFor(model => model.Name)
@@ -32,7 +38,13 @@
             @Html.DisplayFor(model => model.ManagedSince)
         </dd>
     </dl>
+    <div class="row">
+        <div class="col-lg-6">
+            <p>@Html.ActionLink("Back", "Index", null, new { @class = "btn"})</p>
+        </div>
+        <div class="col-lg-6">
+            <p class="pull-right">@Html.ActionLink("Add New Manager", "Add", null, new { @class = "btn btn-primary" })</p>
+        </div>
+
+    </div>
 </div>
-<p>
-    @Html.ActionLink("Back", "Index")
-</p>

@@ -11,6 +11,6 @@ namespace FundsLibrary.InterviewTest.Service.Repositories
         Task<IQueryable<FundManager>> GetAll();
         void Update(Guid id, FundManager fundManager);
         void Delete(Guid id);
-        Guid Create(FundManager fundManager);
+        Task<Guid> Create(FundManager fundManager);
     }
 }

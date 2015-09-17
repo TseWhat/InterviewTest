@@ -3,11 +3,13 @@
 
 @{
     ViewBag.Title = Model.ErrorHeader;
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <div>
     <h1>@Model.ErrorHeader</h1>
     <p>@Model.ErrorMessage</p>
+    <p>@Model.ExceptionMesage</p>
     <p>
         @Html.ActionLink("Back", "Index")
     </p>

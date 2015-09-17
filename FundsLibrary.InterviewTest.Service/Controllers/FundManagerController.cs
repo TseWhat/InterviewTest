@@ -31,5 +31,15 @@ namespace FundsLibrary.InterviewTest.Service.Controllers
         {
             return await _repository.GetBy(id);
         }
+
+        public async Task<Guid> Post(FundManager fundManager)
+        {
+            return await _repository.Create(fundManager);
+        }
+
+        public void Put(FundManager fundManager)
+        {
+            _repository.Update(fundManager.Id, fundManager);
+        }
     }
 }

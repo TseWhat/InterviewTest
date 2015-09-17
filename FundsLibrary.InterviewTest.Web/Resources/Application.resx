@@ -117,6 +117,18 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="AddManagerError" xml:space="preserve">
+    <value>Add Manager Error</value>
+  </data>
+  <data name="AddManagerErrorMessage" xml:space="preserve">
+    <value>The new manager could not be added, please try again</value>
+  </data>
+  <data name="Error" xml:space="preserve">
+    <value>Error</value>
+  </data>
+  <data name="ErrorMessage" xml:space="preserve">
+    <value>An error occurred getting the manager</value>
+  </data>
   <data name="ManagerNotFound" xml:space="preserve">
     <value>Manager Not Found</value>
   </data>
@@ -128,5 +140,11 @@
   </data>
   <data name="NotFoundMessage" xml:space="preserve">
     <value>The specified manager was not found</value>
+  </data>
+  <data name="SuccessfullyCreated" xml:space="preserve">
+    <value>The manager has been succesfully created</value>
+  </data>
+  <data name="SuccessfullyEdited" xml:space="preserve">
+    <value>The changes have been saved</value>
   </data>
 </root>

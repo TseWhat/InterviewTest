@@ -57,13 +57,13 @@ namespace FundsLibrary.InterviewTest.Service.Repositories
             _fundManagers.TryRemove(id, out value);
         }
 
-        public Guid Create(FundManager fundManager)
+        public Task<Guid> Create(FundManager fundManager)
         {
             fundManager.Id = Guid.NewGuid();
             if (!_fundManagers.TryAdd(fundManager.Id, fundManager))
                 throw new Exception("Cannot add manager - another manager with the same ID already exists."); // Unlikely as it's as the key is a GUID.
 
-            return fundManager.Id;
+            return Task.FromResult(fundManager.Id);
         }
     }
 }

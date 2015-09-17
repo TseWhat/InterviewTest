@@ -61,6 +61,42 @@ namespace FundsLibrary.InterviewTest.Web.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Add Manager Error.
+        /// </summary>
+        public static string AddManagerError {
+            get {
+                return ResourceManager.GetString("AddManagerError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The new manager could not be added, please try again.
+        /// </summary>
+        public static string AddManagerErrorMessage {
+            get {
+                return ResourceManager.GetString("AddManagerErrorMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Error.
+        /// </summary>
+        public static string Error {
+            get {
+                return ResourceManager.GetString("Error", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to An error occurred getting the manager.
+        /// </summary>
+        public static string ErrorMessage {
+            get {
+                return ResourceManager.GetString("ErrorMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Manager Not Found.
         /// </summary>
         public static string ManagerNotFound {
@@ -93,6 +129,24 @@ namespace FundsLibrary.InterviewTest.Web.Resources {
         public static string NotFoundMessage {
             get {
                 return ResourceManager.GetString("NotFoundMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The manager has been succesfully created.
+        /// </summary>
+        public static string SuccessfullyCreated {
+            get {
+                return ResourceManager.GetString("SuccessfullyCreated", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The changes have been saved.
+        /// </summary>
+        public static string SuccessfullyEdited {
+            get {
+                return ResourceManager.GetString("SuccessfullyEdited", resourceCulture);
             }
         }
     }

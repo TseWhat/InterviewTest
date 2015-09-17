@@ -4,6 +4,8 @@ using System.Web.Mvc;
 using FundsLibrary.InterviewTest.Web.Repositories;
 using FundsLibrary.InterviewTest.Web.Models.Errors;
 using FundsLibrary.InterviewTest.Web.Resources;
+using FundsLibrary.InterviewTest.Web.Models;
+using FundsLibrary.InterviewTest.Common;
 
 namespace FundsLibrary.InterviewTest.Web.Controllers
 {
@@ -29,7 +31,7 @@ namespace FundsLibrary.InterviewTest.Web.Controllers
             if (response != null)
                 return View(response);
 
-            return View("NotFound", new ErrorModel {  ErrorHeader = Application.NoManagersFound, ErrorMessage = Application.NoManagersFoundMessage});
+            return View("GenericError", new ErrorModel { ErrorHeader = Application.NoManagersFound, ErrorMessage = Application.NoManagersFoundMessage });
         }
 
         // GET: FundManager/Details/id
@@ -43,13 +45,80 @@ namespace FundsLibrary.InterviewTest.Web.Controllers
                     return View(response);
             }
 
-            return RedirectToAction("NotFound", new ErrorModel { ErrorHeader = Application.ManagerNotFound, ErrorMessage = Application.NotFoundMessage });
+            return RedirectToAction("GenericError", new ErrorModel { ErrorHeader = Application.ManagerNotFound, ErrorMessage = Application.NotFoundMessage });
         }
 
-        // GET: FundManager/NotFound
-        public ActionResult NotFound(ErrorModel model)
+        public ActionResult Add()
         {
-            return View("NotFound", model);
+            return View(new FundManagerModel());
+        }
+
+        [HttpPost]
+        public async Task<ActionResult> Add(FundManagerModel model)
+        {
+            if (!ModelState.IsValid)
+                return View();
+
+            try
+            {
+                var response = await _repository.Create(model);
+
+                if (response != Guid.Empty)
+                {
+                    ViewBag.SuccessMessage = Application.SuccessfullyCreated;    
+                    return RedirectToAction("Details/" + response);
+                }
+                else
+                {
+                    return RedirectToAction("GenericError", new ErrorModel { ErrorHeader = Application.AddManagerError, ErrorMessage = Application.AddManagerErrorMessage });
+                }
+            }
+            catch (Exception)
+            {
+                return RedirectToAction("GenericError", new ErrorModel { ErrorHeader = Application.AddManagerError, ErrorMessage = Application.AddManagerErrorMessage });
+            }
+        }
+
+        [HttpGet]
+        public async Task<ActionResult> Edit(Guid managerId)
+        {
+            try
+            {
+                var manager = await _repository.Get(managerId);
+
+                if (manager != null)
+                    return View(manager);
+
+                return RedirectToAction("GenericError", new ErrorModel { ErrorHeader = Application.ManagerNotFound, ErrorMessage = Application.NotFoundMessage });
+            }
+            catch (Exception)
+            {
+                return RedirectToAction("GenericError", new ErrorModel { ErrorHeader = Application.Error, ErrorMessage = Application.ErrorMessage });
+            }
+        }
+
+        public async Task<ActionResult> Edit(FundManagerModel model)
+        {
+            try
+            {
+                if (!ModelState.IsValid)
+                    return View();
+
+                await _repository.Edit(model);
+                ViewBag.SuccessMessage = Application.SuccessfullyEdited;    
+            }
+            catch (Exception ex)
+            {
+                return RedirectToAction("GenericError", new ErrorModel(ex.Message));
+            }
+
+            return View();
+        }
+
+
+        public ActionResult GenericError(ErrorModel model)
+        {
+            return View(model);
         }
     }
 }
