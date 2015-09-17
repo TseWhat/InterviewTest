@@ -48,6 +48,7 @@ namespace FundsLibrary.InterviewTest.Web.Controllers
             return RedirectToAction("GenericError", new ErrorModel { ErrorHeader = Application.ManagerNotFound, ErrorMessage = Application.NotFoundMessage });
         }
 
+        [HttpGet]
         public ActionResult Add()
         {
             return View(new FundManagerModel());
